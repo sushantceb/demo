@@ -1,0 +1,24 @@
+{
+    "question": {
+        "content": "test",
+        "images": {},
+        "widgets": {}
+    },
+    "answerArea": {
+        "type": "input-number",
+        "options": {
+            "value": "0",
+            "simplify": "required",
+            "size": "normal",
+            "inexact": false,
+            "maxError": 0.1,
+            "answerType": "number"
+        },
+        "calculator": false
+    },
+    "itemDataVersion": {
+        "major": 0,
+        "minor": 1
+    },
+    "hints": []
+}

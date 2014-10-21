@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<title>Perseus</title>
+
+<link rel="stylesheet" type="text/css" href="ke/css/khan-site.css" />
+<link rel="stylesheet" type="text/css" href="ke/css/khan-exercise.css" />
+<link rel="stylesheet" type="text/css" href="lib/katex/fonts/fonts.css" />
+<link rel="stylesheet/less" type="text/css" href="lib/katex/katex.less" />
+<link rel="stylesheet" type="text/css" href="lib/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="lib/mathquill/mathquill.css" />
+
+<link rel="stylesheet/less" type="text/css" href="stylesheets/exercise-content-package/perseus.less" />
+<link rel="stylesheet/less" type="text/css" href="stylesheets/perseus-admin-package/editor.less" />
+
+<script>less = {env: 'development', logLevel: 1};</script>
+<script src="lib/less.js"></script>
+<style type="text/css">
+.perseus-editor-left-cell {
+    /*display: none;*/
+}
+</style>
+</head>
+<body>
+<!-- Begin Perseus HTML -->
+<div id="perseus-container">
+</div>
+<!-- End Perseus HTML -->
+
+<div id="problem-and-answer" class="framework-perseus" style="width: 797px;">
+    <div id="problemarea">
+        <div id="workarea"></div>
+        <div id="hintsarea"></div>
+    </div>
+    <div id="answer_area_wrap">
+        <div id="answer_area">
+            <form id="answerform">
+                <div id="anwsercontent">
+                    <div id="solutionarea"></div>
+                </div>
+            </form>
+	<div id="result-container"></div>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+
+<div id="extras">
+    <button id="score">Score</button>
+    <span id="examples-show" style="display: none;">Acceptable formats</span>
+</div>
+
+
+
+<!-- put an empty div here so the margin on the perseus editor has something
+to "push against" (without the div, the padding goes off the page, and the
+add hint button ends up touching the bottom of the page). -->
+<div class="clear"></div>
+
+<script src="lib/jquery.js"></script>
+<script src="lib/underscore.js"></script>
+<script src="lib/marked.js"></script>
+<script src="lib/react-with-addons.js"></script>
+<script src="ke/third_party/MathJax/2.1/MathJax.js?config=KAthJax-8f02f65cba7722b3e529bd9dfa6ac25d&amp;delayStartupUntil=configured"></script>
+<script src="lib/katex/katex.js"></script>
+<script src="lib/mathquill/mathquill-basic.js"></script>
+<script src="lib/kas.js"></script>
+
+<script>
+    var icu = {
+        getDecimalFormatSymbols: function() {
+            return {
+                decimal_separator: ".",
+                grouping_separator: ",",
+                minus: "-"
+            };
+        }
+    };
+    var KhanUtil = {
+        debugLog: function() {},
+        localeToFixed: function(num, precision) {
+            return num.toFixed(precision);
+        }
+    };
+    var Khan = {
+        Util: KhanUtil,
+        error: function() {},
+        query: {debug: ""},
+        imageBase: "/ke/images/",
+        scratchpad: {
+            enable: function() {},
+            disable: function() {}
+        }
+    };
+    React.initializeTouchEvents(true);
+</script>
+
+<script src="ke/local-only/jed.js"></script>
+<script src="ke/local-only/i18n.js"></script>
+<script src="ke/local-only/jquery.qtip.js"></script>
+<script src="ke/exercises-stub.js"></script>
+<script src="ke/local-only/require.js"></script>
+
+<script>
+(function() {
+
+requirejs.config({
+    waitSeconds: 120
+});
+
+// Load khan-exercises modules, then perseus
+require(["ke-deps.js"], function() {
+    // pre built
+    // require(["build/perseus.js"], initPerseus);
+
+    // pre built with source maps
+    // require(["build/perseus.debug.js"], initPerseus);
+
+    // built on demand
+    require(["live-build/perseus.js"], initPerseus);
+});
+
+var codeGeeksConfig = {
+    api: "api.php",
+    auther: "CodeGeeks"
+}
+
+
+
+function initPerseus(Perseus) {
+
+window.Perseus = Perseus;
+
+var editor;
+var problemNum = _.random(1, 99);
+var enabledFeatures = {
+    highlight: true,
+    toolTipFormats: true,
+    useMathQuill: true
+};
+
+var initQ = function() {
+    Perseus.init({skipMathJax: false}).then(function() {
+
+  var itemMountNode = document.getElementById("perseus-container") ;
+  zk = React.renderComponent(Perseus.ItemRenderer({
+        item: question,
+        problemNum: Math.floor(Math.random() * 50) + 1,
+        initialHintsVisible: question.hints.length,
+        enabledFeatures: {
+            highlight: true,
+            toolTipFormats: true
+        }
+    }, null), itemMountNode);
+    zk.focus();
+
+    }).then(function() {
+    }, function(err) {
+        console.error(err);
+    });
+}
+
+$('#score').on('click', function() {
+
+var result  = zk.scoreInput() ;
+
+if(result.correct)
+{
+	$("#result-container").html("Correct Answer") ;
+	$("#result-container").css("color","green") ;
+}
+else
+{
+	$("#result-container").html("Incorrect Answer") ;
+	$("#result-container").css("color","red") ;
+}
+sendDataToDatabase(result);
+
+});
+
+function sendDataToDatabase(result){
+// send data to database
+var jsons = ['q1.json','q2.json','q3.json'];
+var item = jsons[Math.floor(Math.random()*jsons.length)];
+$.getJSON(codeGeeksConfig.api, {action: "get_json", file_name: item}, function(data) {
+        console.log(data);
+        question = data;
+        initQ();
+    }).error(function() {
+	console.log("Error in downloading json") ;       
+	alert("Error in downloading question data");
+    });
+}
+
+fileName = window.location.hash;
+// var query = Perseus.Util.parseQueryString();
+
+var question = {};
+if(fileName.length > 1) {
+    $.getJSON(codeGeeksConfig.api, {action: "get_json", file_name: fileName.substr(1)}, function(data) {
+        console.log(data);
+        question = data;
+        initQ();
+    }).error(function() {
+	console.log("Error in downloading json") ;       
+	alert("Error in downloading question data");
+    });
+} else {
+	console.log("json not proper") ;       
+	alert("question data not proper");
+}
+
+
+}
+
+})();
+</script>
+
+</body>
+</html>

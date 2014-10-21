@@ -1,0 +1,43 @@
+{
+    "question": {
+        "content": "ବର୍ତ୍ତମାନ ଏକ ପ୍ରକାର କୀଟଙ୍କ ସଂଖ୍ୟା x, ସପ୍ତାହକ ପରେ ସେମାନଙ୍କ ସଂଖ୍ୟା y ଗୁଣ ହୋଇଯାଏ । ସେହି ହାରରେ ସେମାନଙ୍କ ସଂଖ୍ୟା ଵୃଦ୍ଧି ପାଇଲେ ତିନି ସପ୍ତାହ ଶେଷ ବେଳକୁ କୀଟଙ୍କ ସଂଖ୍ୟା କେତେ ହେବ ?",
+        "images": {},
+        "widgets": {}
+    },
+    "answerArea": {
+        "type": "radio",
+        "options": {
+            "choices": [
+                {
+                    "content": "xy3",
+                    "correct": true
+                },
+                {
+                    "correct": false
+                }
+            ],
+            "randomize": false,
+            "multipleSelect": false,
+            "displayCount": null,
+            "noneOfTheAbove": false,
+            "onePerLine": true
+        },
+        "calculator": false
+    },
+    "itemDataVersion": {
+        "major": 0,
+        "minor": 1
+    },
+    "hints": [
+        {
+            "content": "ବର୍ତ୍ତମାନ କୀଟଙ୍କ ସଂଖ୍ୟା x\n \nସପ୍ତାହରେ ଵୃଦ୍ଧି ପାଏ y ଗୁଣ\n \nତେବେ,",
+            "images": {},
+            "widgets": {}
+        },
+        {
+            "content": "ପ୍ରଥମ ସପ୍ତାହ ଶେଷରେ କୀଟ ସଂଖ୍ୟା =x×y=xy\n \nଦ୍ୱିତୀୟ ସପ୍ତାହ ଶେଷରେ କୀଟ ସଂଖ୍ୟା = xy\\times y= xy^{2}",
+            "images": {},
+            "widgets": {}
+        }
+    ]
+}

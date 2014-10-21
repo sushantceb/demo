@@ -1,0 +1,38 @@
+{
+  "name": "react-components",
+  "version": "0.1.1",
+  "author": "Khan Academy",
+  "description": "React components used by Khan Academy",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Khan/react-components.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Khan/react-components/issues"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/Khan/react-components/blob/master/LICENSE"
+  },
+  "dependencies": {
+    "rcss": "khan/RCSS#9e5ec9614e391d28a621297a63bc2d850eae89e8"
+  },
+  "devDependencies": {
+    "browserify": ">=4",
+    "backbone": "~1.1.2",
+    "mocha": "~1.18.2",
+    "jquery": "~2.1.1",
+    "jsdom": "~0.10.5",
+    "jstransform": "~5.0.0",
+    "react": "~0.10.0",
+    "react-addons": "~0.9.0",
+    "reactify": "~0.13.0",
+    "react-tools": "~0.10.0",
+    "underscore": "~1.6.0",
+    "moment": "*"
+  },
+  "scripts": {
+    "test": "make test",
+    "prepublish": "node prepublish.js"
+  }
+}

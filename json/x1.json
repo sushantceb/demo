@@ -1,0 +1,66 @@
+{
+    "question": {
+        "content": "Consider the same popup window example in question 6\n\nBrowser Preview:\n\n[[☃ image 1]]\n\n",
+        "images": {},
+        "widgets": {
+            "image 1": {
+                "type": "image",
+                "graded": true,
+                "options": {
+                    "range": [
+                        [
+                            0,
+                            10
+                        ],
+                        [
+                            0,
+                            10
+                        ]
+                    ],
+                    "box": [
+                        222,
+                        153
+                    ],
+                    "backgroundImage": {
+                        "url": "https://s3.amazonaws.com/oresoft_production_bucket/15/images/u1_q7.png",
+                        "width": 222,
+                        "height": 153
+                    },
+                    "labels": []
+                },
+                "version": {
+                    "major": 0,
+                    "minor": 0
+                }
+            }
+        }
+    },
+    "answerArea": {
+        "type": "radio",
+        "options": {
+            "choices": [
+                {
+                    "content": "new delhi",
+                    "correct": true,
+                    "clue": "www"
+                },
+                {
+                    "correct": false,
+                    "content": "kolkotta"
+                },
+                {}
+            ],
+            "randomize": false,
+            "multipleSelect": false,
+            "displayCount": null,
+            "noneOfTheAbove": false,
+            "onePerLine": true
+        },
+        "calculator": false
+    },
+    "itemDataVersion": {
+        "major": 0,
+        "minor": 1
+    },
+    "hints": []
+}
