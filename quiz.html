@@ -49,6 +49,7 @@
 
 <div id="extras">
     <button id="score">Score</button>
+    <button id="next-question-button">Next Question</button>
     <span id="examples-show" style="display: none;">Acceptable formats</span>
 </div>
 
@@ -142,6 +143,8 @@ var enabledFeatures = {
 };
 
 var initQ = function() {
+    $('#next-question-button').hide();
+    $('#score').show();
     Perseus.init({skipMathJax: false}).then(function() {
 
   var itemMountNode = document.getElementById("perseus-container") ;
@@ -170,6 +173,8 @@ if(result.correct)
 {
 	$("#result-container").html("Correct Answer") ;
 	$("#result-container").css("color","green") ;
+        $('#score').hide();
+        $('#next-question-button').show();
 }
 else
 {
@@ -180,9 +185,12 @@ sendDataToDatabase(result);
 
 });
 
-function sendDataToDatabase(result){
-// send data to database
-var jsons = ['q1.json','q2.json','q3.json'];
+$('#next-question-button').on('click', function() {
+    getNextQuestion();
+});
+
+function getNextQuestion() {
+    var jsons = ['q1.json','q2.json'];
 var item = jsons[Math.floor(Math.random()*jsons.length)];
 $.getJSON(codeGeeksConfig.api, {action: "get_json", file_name: item}, function(data) {
         console.log(data);
@@ -192,6 +200,10 @@ $.getJSON(codeGeeksConfig.api, {action: "get_json", file_name: item}, function(d
 	console.log("Error in downloading json") ;       
 	alert("Error in downloading question data");
     });
+}
+function sendDataToDatabase(result){
+// send data to database
+
 }
 
 fileName = window.location.hash;
